@@ -3,6 +3,7 @@
 const {withContentlayer} = require("next-contentlayer")
 
 const nextConfig = {
+    output: 'export',
     compiler:{
         removeConsole: true,
     }
