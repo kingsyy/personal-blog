@@ -4,7 +4,7 @@ import Tag from "@/src/components/Elements/Tag";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { allBlogs } from "contentlayer/generated";
 import { slug } from "github-slugger";
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 
 export async function generateStaticParams() {
   return allBlogs.map((blog) => ({ slug: blog._raw.flattenedPath }));
@@ -103,7 +103,7 @@ export default function BlogPage({ params }) {
           </h1>
         </div>
         <div className="absolute top-0 left-0 right-0 bottom-0 h-full bg-dark/60 dark:bg-dark/40" />
-        <Image
+        <ExportedImage
           src={blog.image.filePath.replace("../public", "")}
           placeholder="blur"
           blurDataURL={blog.image.blurhashDataUrl}

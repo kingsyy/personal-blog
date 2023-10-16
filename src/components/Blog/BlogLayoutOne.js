@@ -1,7 +1,7 @@
 import React from "react";
 import Tag from "../Elements/Tag";
 import Link from "next/link";
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import { slug } from "github-slugger";
 
 const BlogLayoutOne = ({ blog }) => {
@@ -12,7 +12,7 @@ const BlogLayoutOne = ({ blog }) => {
             bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-xl z-10
             "
       />
-      <Image
+      <ExportedImage
         src={blog.image.filePath.replace("../public", "")}
         placeholder="blur"
         blurDataURL={blog.image.blurhashDataUrl}

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 import React from "react";
 
@@ -10,7 +10,7 @@ const BlogLayoutTwo = ({ blog }) => {
         href={blog.url}
         className=" col-span-12  lg:col-span-4 h-full rounded-xl overflow-hidden"
       >
-        <Image
+        <ExportedImage
           src={blog.image.filePath.replace("../public", "")}
           placeholder="blur"
           blurDataURL={blog.image.blurhashDataUrl}

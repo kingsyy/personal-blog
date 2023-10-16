@@ -1,5 +1,5 @@
 import { sortBlogs } from '@/src/utils'
-import Image from 'next/image';
+import ExportedImage from "next-image-export-optimizer";
 import Link from 'next/link';
 import React from 'react'
 import Tag from '../Elements/Tag';
@@ -16,7 +16,7 @@ const HomeCoverSection = ({blogs}) => {
             <div className='absolute top-0 left-0 bottom-0 right-0 h-full
             bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-3xl z-0
             ' />
-        <Image src={blog.image.filePath.replace("../public", "")}
+        <ExportedImage src={blog.image.filePath.replace("../public", "")}
         placeholder='blur'
         blurDataURL={blog.image.blurhashDataUrl}
         alt={blog.title}
