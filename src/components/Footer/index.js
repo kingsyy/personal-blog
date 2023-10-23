@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="relative mt-auto rounded-2xl bg-dark dark:bg-accentDark/90 flex items-center text-light dark:text-dark w-full  font-medium py-6 px-8 flex-col md:flex-row justify-between">
         <span className="text-center">
-          &copy;2023 CodeBucks. All rights reserved.
+          &copy;2023 Arthur. All rights reserved.
         </span>
         <div className="flex items-center">
         <a
@@ -46,7 +46,7 @@ const Footer = () => {
         <div className="text-center">
           Made with &hearts; by{" "}
           <a href="https://devdreaming.com" className="underline" target="_blank">
-            CodeBucks
+            Arthur
           </a>
         </div>
     </footer>
