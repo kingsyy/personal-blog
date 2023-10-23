@@ -8,7 +8,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export && next-image-export-optimizer"
+    "export": "next build && next export && next-image-export-optimizer",
+    "image-optimizer": "next-image-export-optimizer"
   },
   "dependencies": {
     "@dotlottie/react-player": "^1.2.1",

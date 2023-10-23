@@ -1,6 +1,6 @@
 import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link"
-import profileImg from "@/public/profile-img.png"
+import profileImg from "@/public/logo.png"
 
 const Logo = () => {
   return (
