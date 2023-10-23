@@ -5,7 +5,7 @@ import siteMetadata from "@/src/utils/siteMetaData";
 
 const Footer = () => {
   return (
-    <footer className="mt-16 rounded-2xl bg-dark dark:bg-accentDark/90 flex flex-col items-center text-light dark:text-dark w-full  mt-16 md:mt-24 relative font-medium py-6 px-8 flex flex-col md:flex-row items-center justify-between">
+    <footer className="relative mt-auto rounded-2xl bg-dark dark:bg-accentDark/90 flex items-center text-light dark:text-dark w-full  font-medium py-6 px-8 flex-col md:flex-row justify-between">
         <span className="text-center">
           &copy;2023 CodeBucks. All rights reserved.
         </span>
