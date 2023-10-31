@@ -13,11 +13,8 @@ export async function onRequestPost({ request, env }) {
     }
 }
 
-async function handleRequest({ request, env }) {
-    // const ip = request.headers.get("CF-Connecting-IP");
-    console.log(request)
-
-
+async function handleRequest(request, env) {
+    const ip = request.headers.get("CF-Connecting-IP"); 
     const formData = await request.formData();
     const name = formData.get("name");
     const email = formData.get("email");
@@ -25,7 +22,7 @@ async function handleRequest({ request, env }) {
     const message = formData.get("message");
     const token = formData.get("cf-turnstile-response");
 
-    const tokenValidated = await validateToken( token, env.SECRET_KEY);
+    const tokenValidated = await validateToken( token, env.SECRET_KEY, ip);
 
     if (!tokenValidated) {
         return new Response(
@@ -53,11 +50,11 @@ async function handleRequest({ request, env }) {
     }
 }
 
-async function validateToken(token, secret) {
+async function validateToken(token, secret, ip) {
     const formData = new FormData();
     formData.append("secret", secret);
     formData.append("response", token);
-    // formData.append("remoteip", ip);
+    formData.append("remoteip", ip);
     const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
     const result = await fetch(url, {
         body: formData,
