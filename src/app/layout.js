@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
   }`}
         </Script>
         <Header />
-        <div className="mb-16"> {children}</div>
+        <div className="my-16 sm:mt-0"> {children}</div>
         <Footer />
       </body>
     </html>
