@@ -3,7 +3,7 @@ export async function onRequestPost({ request, env }) {
         return await handleRequest(request, env);
     } catch (e) {
         return new Response(
-            JSON.stringify({ message: "Error sending message:" + e.message , result }),
+            JSON.stringify({ message: "Error sending message:" + e.message, env  }),
             {
                 status: 500,
             }
@@ -24,7 +24,7 @@ async function handleRequest(request, env) {
 
     if (!tokenValidated) {
         return new Response(
-            JSON.stringify({ message: "Token validation failed", result }),
+            JSON.stringify({ message: "Token validation failed", tokenValidated }),
             {
                 status: 403,
             }
@@ -38,7 +38,7 @@ async function handleRequest(request, env) {
         });
     } else {
         return new Response(
-            JSON.stringify({ message: "Message submission failed", result }),
+            JSON.stringify({ message: "Message submission failed"  }),
             {
                 status: 400,
             }
@@ -80,7 +80,7 @@ async function forwardMessage(env, name, email, phone, message) {
         Object.entries(data)
             .map((param) => param.join("="))
             .join("&")
-    );
+    ); 
 
     const init = {
         method: "POST",
