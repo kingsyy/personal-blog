@@ -2,11 +2,9 @@ export async function onRequestPost({ request, env }) {
     try {
         return await handleRequest(request, env);
     } catch (e) {
-        console.error(e);
         return new Response(
-            JSON.stringify({ message: "Error sending message:" + e.message, result }),
+            JSON.stringify({ message: "Error sending message:" + e.message , result }),
             {
-                headers: { "content-type": "application/json" },
                 status: 500,
             }
         );
@@ -28,7 +26,6 @@ async function handleRequest(request, env) {
         return new Response(
             JSON.stringify({ message: "Token validation failed", result }),
             {
-                headers: { "content-type": "application/json" },
                 status: 403,
             }
         );
@@ -43,7 +40,6 @@ async function handleRequest(request, env) {
         return new Response(
             JSON.stringify({ message: "Message submission failed", result }),
             {
-                headers: { "content-type": "application/json" },
                 status: 400,
             }
         );
