@@ -18,13 +18,17 @@ export default function ContactForm() {
   const onSubmit = async data => {
     setIsSubmitting(true);
     try {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("message", data.message);
+      formData.append("token", data.token);
       const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+          body: formData,
+          method: "POST",
       });
+
       if (!response.ok) {
         throw new Error("Failed to send the form data.");
       }
