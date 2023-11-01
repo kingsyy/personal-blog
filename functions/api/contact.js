@@ -9,11 +9,13 @@ async function handleRequest(request, env) {
     const email = formData.get("email");
     const phone = formData.get("message");
     const message = formData.get("message");
-    const token = formData.get("cf-turnstile-response");
+    const token = formData.get("token");
 
     const tokenValidated = await validateToken(token, env.SECRET_KEY, ip);
 
     if (!tokenValidated) {
+        throw new Error("Token eroor:"+ip +" , " + JSON.stringify(formData) )
+
         return new Response("Token validation failed", { status: 403 });
     }
 
