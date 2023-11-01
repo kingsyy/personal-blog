@@ -59,13 +59,11 @@ async function forwardMessage(env, name, email, phone, message) {
             .map((param) => param.join("="))
             .join("&")
     );
-
+        throw new Error("Mailgun request")
     const init = {
         method: "POST",
         headers: {
-            Authorization: "Basic " + btoa("api:" + env.MAILGUN_API_KEY),
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Content-Length": submitUrlString.length.toString(),
+            Authorization: "Basic " + btoa("api:" + env.MAILGUN_API_KEY)
         },
         body: submitUrlString,
     };
