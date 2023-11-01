@@ -1,9 +1,5 @@
 export async function onRequestPost({ request, env }) {
-    try {
-        return await handleRequest(request, env);
-    } catch (e) {
-        return new Response("Error sending message:" + e.message, { status: 500 });
-    }
+    return await handleRequest(request, env);
 }
 
 async function handleRequest(request, env) {
