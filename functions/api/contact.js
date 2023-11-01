@@ -2,17 +2,12 @@ export async function onRequestPost({ request, env }) {
     try {
         return await handleRequest(request, env);
     } catch (e) {
-        return new Response(
-            JSON.stringify({ message: "Error sending message:" + e.message, env  }),
-            {
-                status: 500,
-            }
-        );
+        return new Response("Error sending message:" + e.message, { status: 500 });
     }
 }
 
 async function handleRequest(request, env) {
-    const ip = request.headers.get("CF-Connecting-IP"); 
+    const ip = request.headers.get("CF-Connecting-IP");
     const formData = await request.formData();
     const name = formData.get("name");
     const email = formData.get("email");
@@ -20,29 +15,16 @@ async function handleRequest(request, env) {
     const message = formData.get("message");
     const token = formData.get("cf-turnstile-response");
 
-    const tokenValidated = await validateToken( token, env.SECRET_KEY, ip);
+    const tokenValidated = await validateToken(token, env.SECRET_KEY, ip);
 
     if (!tokenValidated) {
-        return new Response(
-            JSON.stringify({ message: "Token validation failed", tokenValidated }),
-            {
-                status: 403,
-            }
-        );
+        return new Response("Token validation failed", { status: 403 });
     }
 
     if (await forwardMessage(env, name, email, phone, message)) {
-        return new Response(JSON.stringify({ message: "OK" }), {
-            headers: { "content-type": "application/json" },
-            status: 200,
-        });
+        return new Response("OK", { status: 200, });
     } else {
-        return new Response(
-            JSON.stringify({ message: "Message submission failed"  }),
-            {
-                status: 400,
-            }
-        );
+        return new Response("Message submission failed", { status: 400 });
     }
 }
 
@@ -80,7 +62,7 @@ async function forwardMessage(env, name, email, phone, message) {
         Object.entries(data)
             .map((param) => param.join("="))
             .join("&")
-    ); 
+    );
 
     const init = {
         method: "POST",
