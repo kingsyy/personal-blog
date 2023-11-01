@@ -52,7 +52,7 @@ async function forwardMessage(env, name, email, phone, message) {
     const data = {
         to: env.TO_EMAIL_ADDRESS,
         from: env.FROM_EMAIL_ADDRESS,
-        subject: `New Contact from ${json.email}`,
+        subject: `New Contact from ${email}`,
         text: body,
     };
 
