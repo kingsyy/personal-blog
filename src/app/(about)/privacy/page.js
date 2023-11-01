@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function Privacy() {
   return (
-    <section className="w-full h-auto md:h-[75vh] flex  flex-col md:flex-row items-center justify-center text-dark dark:text-light pt-8 ">
+    <section className="w-full h-auto flex flex-col md:flex-row items-center justify-center text-dark dark:text-light pt-8 ">
       <div className="inline-block w-full h-full md:border-r-2 border-solid border-dark dark:border-light  px-5 xs:px-10 md:px-16 pb-8">
         <h2 className="font-bold capitalize  text-2xl xs:text-3xl sm:text-4xl">Terms & Conditions</h2>
         <p>
