@@ -66,7 +66,6 @@ async function forwardMessage(env, name, email, phone, message) {
         method: 'POST',
         headers: {
             Authorization: basicAuth,
-            content
         },
         body: formData,
     });
