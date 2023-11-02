@@ -14,8 +14,6 @@ async function handleRequest(request, env) {
     const tokenValidated = await validateToken(token, env.SECRET_KEY, ip);
 
     if (!tokenValidated) {
-        throw new Error("Token eroor:"+ip +" , " + JSON.stringify(formData) )
-
         return new Response("Token validation failed", { status: 403 });
     }
 
@@ -41,35 +39,89 @@ async function validateToken(token, secret, ip) {
 }
 
 async function forwardMessage(env, name, email, phone, message) {
+
+    const apiKey = env.API_KEY;
+    const apiSecret = env.API_SECRET;
+    const senderEmail = env.SENDER_EMAIL;
+    const recipientEmail = env.RECIPIENT_EMAIL;
+
     const body = `
-      Name: ${name}
-      Email: ${email}
-      Phone: ${phone}
-    
-      ${message} 
-    `;
+    <h3>Name: ${name}<h3/>
+    <h3>Email: ${email}<h3/>
+    <h3>Phone: ${phone}<h3/>
+     </br>
+     <p>Message: ${message}</p>`;
 
-    const data = {
-        to: env.TO_EMAIL_ADDRESS,
-        from: env.FROM_EMAIL_ADDRESS,
-        subject: `New Contact from ${email}`,
-        text: body,
-    };
 
-    const submitUrlString = encodeURI(
-        Object.entries(data)
-            .map((param) => param.join("="))
-            .join("&")
-    );
-        throw new Error("Mailgun request")
-    const init = {
-        method: "POST",
+    const formData = new FormData();
+    formData.append('FromEmail', senderEmail);
+    formData.append('FromName', 'Me');
+    formData.append('Subject', `New Contact from ${email}`);
+    formData.append('Text-part', 'Test text');
+    formData.append('Html-part', body);
+    formData.append('Recipients', JSON.stringify([{ Email: recipientEmail, Name: 'You' }]));
+
+    const basicAuth = 'Basic ' + btoa(`${apiKey}:${apiSecret}`);
+    const response = await fetch('https://api.mailjet.com/v3.1/send', {
+        method: 'POST',
         headers: {
-            Authorization: "Basic " + btoa("api:" + env.MAILGUN_API_KEY)
+            Authorization: basicAuth,
+            content
         },
-        body: submitUrlString,
-    };
+        body: formData,
+    });
 
-    const result = await fetch(`${env.MAILGUN_API_BASE_URL}/messages`, init);
-    return result.status === 200;
+    if (!response.ok) {
+        throw new Error(`Request failed with status: ${response.status} ${response.message}`);
+    }
+    // try {
+    //     const response = await fetch('https://api.mailjet.com/v3.1/send', {
+    //         method: 'POST',
+    //         headers: {
+    //             Authorization: basicAuth,
+    //         },
+    //         body: formData,
+    //     });
+
+    //     if (!response.ok) {
+    //         throw new Error(`Request failed with status: ${response.status}`);
+    //     }
+
+    //     const data = await response.json();
+    //     console.log(data);
+    // } catch (error) {
+    //     console.error('Error sending email:', error);
+    // }
+
+
+    // const body = `
+    //   Name: ${name}
+    //   Email: ${email}
+    //   Phone: ${phone}
+
+    //   ${message} 
+    // `;
+
+    // const data = {
+    //     to: env.TO_EMAIL_ADDRESS,
+    //     from: env.FROM_EMAIL_ADDRESS,
+    //     subject: `New Contact from ${email}`,
+    //     text: body,
+    // };
+
+    // const submitUrlString = encodeURI(
+    //     Object.entries(data)
+    //         .map((param) => param.join("="))
+    //         .join("&")
+    // );
+    // const init = {
+    //     method: "POST",
+    //     headers: {},
+    //     body: submitUrlString,
+    // };
+
+    // const result = await fetch(`${env.MAILGUN_API_BASE_URL}/messages`, init);
+    // return result.status === 200;
+
+
 }
