@@ -9,15 +9,20 @@ async function handleRequest(request, env) {
     const email = formData.get("email");
     const phone = formData.get("message");
     const message = formData.get("message");
-    const token = formData.get("token");
+    const receivedToken = formData.get("token");
 
-    const tokenValidated = await validateToken(token, env.SECRET_KEY, ip);
+    const turnstileToken = env.SECRET_KEY;
+    const pipeDreamsUrl = env.PIPEDREAM_URL;
+
+    console.log(`${turnstileToken} - ${pipeDreamsUrl} - ${ip} - ${receivedToken} - ${message}`)
+
+    const tokenValidated = await validateToken(receivedToken, turnstileToken, ip);
 
     if (!tokenValidated) {
         return new Response("Token validation failed", { status: 403 });
     }
 
-    if (await forwardMessage(env, name, email, phone, message, ip)) {
+    if (await forwardMessage(pipeDreamsUrl, name, email, phone, message, ip)) {
         return new Response("OK", { status: 200, });
     } else {
         return new Response("Message submission failed", { status: 400 });
@@ -38,7 +43,7 @@ async function validateToken(token, secret, ip) {
     return outcome.success;
 }
 
-async function forwardMessage(env, name, email, phone, message, ip) {
+async function forwardMessage(url, name, email, phone, message, ip) {
     try {
         const body = `
             <h3>Name: ${name}</h3>
@@ -57,10 +62,10 @@ async function forwardMessage(env, name, email, phone, message, ip) {
            mode: "cors",
            body: JSON.stringify({"html": body}),
          }
-         const response = await fetch(env.PIPEDREAM_URL, options)
+         const response = await fetch(url, options)
          return response.ok;
     } catch (error) {
-        console.error('Error sending email:', error);
+        console.error('Error sending email:',JSON.stringify(error) );
     }
     return false;
 }
