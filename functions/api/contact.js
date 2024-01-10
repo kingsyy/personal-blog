@@ -59,7 +59,6 @@ async function forwardMessage(url, name, email, phone, message, ip) {
          const options = {
            method: "POST",
            headers,
-           mode: "cors",
            body: JSON.stringify({"html": body}),
          }
          console.log(body)

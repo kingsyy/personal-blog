@@ -33,7 +33,6 @@ export default function ContactForm() {
         throw new Error("Failed to send the form data.");
       }
     } catch (error) {
-      console.log(error.message)
       setSubmitError("An error occurred while sending the form, try again later or send an email to privacy.xzcpl@8shield.net.");
     } finally {
       setIsSubmitting(false);
@@ -72,7 +71,7 @@ export default function ContactForm() {
             className="outline-none border-0 p-0 mx-2 focus:ring-0 placeholder:text-center placeholder:text-lg border-b border-gray focus:border-gray bg-transparent"
           />
           Here are some details about my project: <br />
-          <textarea {...register("project details", {})}
+          <textarea {...register("message", {})}
             placeholder="My project or job offer is about..."
             rows={4}
             className="w-full outline-none border-0 p-0 mx-0 focus:ring-0  placeholder:text-lg border-b border-gray focus:border-gray bg-transparent " />
