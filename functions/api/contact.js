@@ -14,7 +14,7 @@ async function handleRequest(request, env) {
     const turnstileToken = env.SECRET_KEY;
     const pipeDreamsUrl = env.PIPEDREAM_URL;
 
-    console.log(`${turnstileToken} - ${pipeDreamsUrl} - ${ip} - ${receivedToken} - ${message}`)
+    console.log(`${name} - ${email} - ${phone} - ${message}`)
 
     const tokenValidated = await validateToken(receivedToken, turnstileToken, ip);
 
@@ -62,10 +62,13 @@ async function forwardMessage(url, name, email, phone, message, ip) {
            mode: "cors",
            body: JSON.stringify({"html": body}),
          }
+         console.log(body)
          const response = await fetch(url, options)
+         console.log(response)
+
          return response.ok;
     } catch (error) {
-        console.error('Error sending email:',JSON.stringify(error) );
+        console.error(`Error sending email: ${JSON.stringify(error)}` );
     }
     return false;
 }
