@@ -7,7 +7,7 @@ async function handleRequest(request, env) {
     const formData = await request.formData();
     const name = formData.get("name");
     const email = formData.get("email");
-    const phone = formData.get("message");
+    const phone = formData.get("phone");
     const message = formData.get("message");
     const receivedToken = formData.get("token");
 
@@ -68,6 +68,8 @@ async function forwardMessage(url, name, email, phone, message, ip) {
 
          return response.ok;
     } catch (error) {
+        console.log(`${name} - ${email} - ${phone} - ${message} - ${url} - ${ip} - ${error}`)
+        console.log(error?.message ?? "empty")
         console.error(`Error sending email: ${JSON.stringify(error)}` );
     }
     return false;
