@@ -14,8 +14,6 @@ async function handleRequest(request, env) {
     const turnstileToken = env.SECRET_KEY;
     const pipeDreamsUrl = env.PIPEDREAM_URL;
 
-    console.log(`${name} - ${email} - ${phone} - ${message}`)
-
     const tokenValidated = await validateToken(receivedToken, turnstileToken, ip);
 
     if (!tokenValidated) {
@@ -61,15 +59,11 @@ async function forwardMessage(url, name, email, phone, message, ip) {
            headers,
            body: JSON.stringify({"html": body}),
          }
-         console.log(body)
          const response = await fetch(url, options)
-         console.log(response)
-
+        
          return response.ok;
     } catch (error) {
-        console.log(`${name} - ${email} - ${phone} - ${message} - ${url} - ${ip} - ${error}`)
-        console.log(error?.message ?? "empty")
-        console.error(`Error sending email: ${JSON.stringify(error)}` );
+        console.error(`Error sending email: ${error}`);
     }
     return false;
 }
