@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Turnstile from "react-turnstile";
 import Link from "next/link";
-import { DotLottiePlayer } from '@dotlottie/react-player';
+import { LoadingCircle } from "../Icons";
 
 export default function ContactForm() {
   const {
@@ -14,6 +14,7 @@ export default function ContactForm() {
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
 
   const onSubmit = async data => {
     setIsSubmitting(true);
@@ -25,13 +26,15 @@ export default function ContactForm() {
       formData.append("message", data.message);
       formData.append("token", data.token);
       const response = await fetch("/api/contact", {
-          body: formData,
-          method: "POST",
+        body: formData,
+        method: "POST",
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to send the form data.");
+      if (response.ok) {
+        setIsSubmitSuccess(true);
       }
+      throw new Error("Failed to send the form data.");
+      
     } catch (error) {
       setSubmitError("An error occurred while sending the form, try again later or send an email to privacy.xzcpl@8shield.net.");
     } finally {
@@ -41,13 +44,12 @@ export default function ContactForm() {
   register('token', { required: "Cloudflare verification token is required." });
   return (
     <div>
-      {isSubmitting ? (
-        <DotLottiePlayer
-          src="/contact.lottie"
-          autoplay
-          loop
-        >
-        </DotLottiePlayer>
+      {isSubmitSuccess ? (
+       <div className="text-center">
+        <p className="mt-4 text-lg font-medium">
+          Thanks for reaching out. We will contact you soon!
+        </p>
+     </div>
       ) : (
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -76,7 +78,7 @@ export default function ContactForm() {
             rows={4}
             className="w-full outline-none border-0 p-0 mx-0 focus:ring-0  placeholder:text-lg border-b border-gray focus:border-gray bg-transparent " />
           <Turnstile
-            className="py-1"
+            className="py-2"
             sitekey="0x4AAAAAAAMK4XAjRSyWAf1f"
             onVerify={(token) => setValue('token', token)}
           />
@@ -86,11 +88,24 @@ export default function ContactForm() {
           {errors.token && <p role="alert" className="font-medium text-red-500 py-1">{errors.token.message}</p>}
           {submitError && (<p role="alert" className="font-medium text-red-500 py-1">{submitError}</p>)}
 
-          <input type="submit" value="send request" className="mt-4 font-medium inline-block capitalize text-lg sm:text-xl py-2 sm:py-3 px-6 sm:px-8 border-2 border-solid border-dark dark:border-light rounded cursor-pointer" />
-          <p className="text-sm pt-1"> By pressing “Send Request” you agree to the <Link href="/privacy" target="_blank" rel="noopener noreferrer">Terms and Conditions and Privacy Policy.</Link></p>
+          {isSubmitting ? (
+            <button type="submit" className="flex items-center mt-4 font-medium capitalize text-lg sm:text-xl py-2 sm:py-3 px-6 sm:px-8 border-2 border-solid border-dark dark:border-light rounded cursor-not-allowed bg-gray-500 dark:text-white text-black disabled" disabled>
+              <LoadingCircle/>
+              Sending
+            </button>
+          ) : (
+            <>
+              <input type="submit" value="send request" className="mt-4 font-medium inline-block capitalize text-lg sm:text-xl py-2 sm:py-3 px-6 sm:px-8 border-2 border-solid border-dark dark:border-light rounded cursor-pointer" />
+              <p className="text-sm pt-1"> By pressing “Send Request” you agree to the <Link href="/privacy" target="_blank" rel="noopener noreferrer">Terms and Conditions and Privacy Policy.</Link></p>
+            </>
+          )}
+
         </form>
       )}
     </div>
 
   );
 }
+
+
+
