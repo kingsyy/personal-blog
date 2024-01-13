@@ -2,15 +2,14 @@
 import React from 'react'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import ExportedImage from "next-image-export-optimizer";
+import BlogLinks from './BlogLinks';
 
 const mdxComponents = {
     ExportedImage
 }
 
 const RenderMdx = ({blog}) => {
-
     const MDXContent = useMDXComponent(blog.body.code)
-
   return (
     <div className='col-span-12  lg:col-span-8 font-in prose sm:prose-base md:prose-lg max-w-max
     prose-blockquote:bg-accent/20 
@@ -29,13 +28,11 @@ const RenderMdx = ({blog}) => {
 
     first-letter:text-3xl
     sm:first-letter:text-5xl
-    
-
-
     '> 
         <MDXContent components={mdxComponents}/>
+        <BlogLinks currentBlog={blog}/>
     </div>
-  )
+    )
 }
 
 export default RenderMdx
