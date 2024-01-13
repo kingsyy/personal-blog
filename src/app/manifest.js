@@ -1,8 +1,8 @@
 export default function manifest() {
     return {
-      name: 'Arthur',
-      short_name: 'Next.js App',
-      description: 'Next.js App',
+      name: 'ArthursBlog',
+      short_name: "Arthur's Blog",
+      description: "Arthur's Personal Blog",
       start_url: '/',
       display: 'standalone',
       icons: [

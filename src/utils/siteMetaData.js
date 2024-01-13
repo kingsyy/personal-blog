@@ -1,21 +1,17 @@
 // please update required information
 const siteMetadata = {
-    title: `Arthur's blog`,
+    title: `Arthur's Blog`,
     author: 'Arthur',
-    headerTitle: 'Next.js Blog',
-    description: 'A blog created with Next.js, Tailwind.css and contentlayer.',
+    headerTitle:`Arthur's Next.js Blog`,
+    description: 'A personal blog created with Next.js, Tailwind.css and contentlayer.',
     language: 'en-us',
-    theme: 'system', // system, dark or light
-    siteUrl: 'https://blog.montali.nl', // your website URL
+    theme: 'system',
+    siteUrl: 'https://blog.montali.nl',
     siteLogo: '/logo.png',
     socialBanner: '/social-banner.png', // add social banner in the public folder
-    email: 'codebucks27@gmail.com', 
-    github: 'https://github.com/codebucks27',
-    twitter: 'https://twitter.com/code_bucks',
-    facebook: 'https://facebook.com',
-    youtube: 'https://youtube.com/codebucks',
-    linkedin: 'https://www.linkedin.com/in/codebucks/',
-    dribbble: 'https://www.dribbble.com',
+    email: 'privacy.xzcpl@8shield.net', 
+    github: 'https://github.com/kingsyy',
+    linkedin: 'https://www.linkedin.com/in/arthur-van-rooijen/',
     locale: 'en-US',
   }
   
