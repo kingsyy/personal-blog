@@ -28,7 +28,7 @@ const AboutCoverSection = () => {
         <p className='font-medium mt-4 text-base'>
         Greetings, 
           wanderer of the interwebz. Seeker of knowledge. Welcome to my corner of the web, 
-          where code dances with creativity and pixels paint stories of innovation.
+          where code dances and bytes paint stories of innovation.
         </p>
         <p className='font-medium mt-4 text-base'>
           I'm a full-stack developer with a software developer's degree. 
@@ -39,7 +39,7 @@ const AboutCoverSection = () => {
           I also enjoy repairing electronics and working with IoT.
         </p>
         <p className='font-medium  mt-4 text-base'>
-          My digital heart is with privacy, security, inclusive design
+          My digital heart is with privacy, security and inclusive design
               with a passion for open-source projects.
           For a deeper dive into my projects, 
               feel free to explore my <Link className="!underline underline-offset-2" href={"/categories/all"}>posts</Link>.

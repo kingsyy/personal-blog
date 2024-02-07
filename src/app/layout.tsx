@@ -45,12 +45,7 @@ export const metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-  },
+  }
 };
 
 export default function RootLayout({ children } : any) {
