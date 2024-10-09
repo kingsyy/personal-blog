@@ -12,13 +12,21 @@ export function useThemeSwitch() {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    window.localStorage.setItem(storageKey, theme);
+    try {
+      window.localStorage.setItem(storageKey, theme);
+    } catch (error) {
+      
+    }
   };
 
   const getUserPreference = () => {
-    const userPref = window.localStorage.getItem(storageKey);
-    if (userPref) {
-      return userPref;
+    try {
+      const userPref = window.localStorage.getItem(storageKey);
+      if (userPref) {
+        return userPref;
+      }
+    } catch (error) {
+      
     }
     return window.matchMedia(preferDarkQuery).matches ? "dark" : "light";
   };

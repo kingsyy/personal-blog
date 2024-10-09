@@ -15,17 +15,24 @@ const getAdjacentBlog = (sortedBlogs: Blog[], currentBlog: Blog | undefined, dir
 const BlogSquare = ({ blog, direction, category }: BlogLinkItem) => {
     const blogValues = GetNullableFields(blog);
     return blog ? (
-        <div className='relative'>
+        <div className="relative rounded-lg overflow-hidden shadow-lg">
             <ExportedImage src={blogValues.imageUrl}
                 placeholder='blur'
                 blurDataURL={blogValues.blurHashDataUrl}
                 alt={blog?.title}
                 fill
-                className='w-full h-full object-center object-cover rounded-3xl !my-0'
-                sizes='100vw'
+                className="object-cover w-full h-full"
+                layout="fill"
                 priority
             />
-                 <div className="absolute top-0 left-0 bottom-0 right-0 h-full
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+                <Link href={blog.url} className="text-white text-center">
+                    <p className="font-bold text-lg">{blog.title}</p>
+                    <p className="text-sm">{direction === 'next' ? 'Next' : 'Previous'} in {category}</p>
+                </Link>
+            </div>
+
+            {/* <div className="absolute top-0 left-0 bottom-0 right-0 h-full
                         bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-3xl
                         "
             />
@@ -33,36 +40,47 @@ const BlogSquare = ({ blog, direction, category }: BlogLinkItem) => {
                 <Link href={blog.url} className='mt-6'>
                     <p className='text-light text-s lg:text-m mx-5'>{blog.title}</p>    
                 </Link>
-            </div>
+            </div> */}
+
         </div>
     ) : (
         <EmptySquare text={`No ${direction === 'next' ? 'newer' : 'older'} blogs in ${category} project yet.`}/>
-    )
+    );
 };
 
-const EmptySquare = ({ text } : TextParam) => {
+const EmptySquare = ({ text }: TextParam) => {
     return (
-        <div className='rounded-3xl prose relative border-[1px] border-solid border-dark dark:border-light'>
-            <Link href="/categories/all" className="mx-2">
-                <p className='text-dark dark:text-light mx-5 underline text-s lg:text-m'>{text} Click here to see all blogs.</p>    
-            </Link>
+    //     <div className='rounded-3xl prose relative border-[1px] border-solid border-dark dark:border-light'>
+        // <Link href="/categories/all" className="mx-2">
+        //     <p className='text-dark dark:text-light mx-5 underline text-s lg:text-m'>{text} Click here to see all blogs.</p>    
+        // </Link>
+    // </div>
+        <div className="rounded-3xl border-[1px] border-solid border-dark dark:border-light flex items-center justify-center">
+            <span className="text-dark dark:text-light mx-5 text-s lg:text-m text-center p-5">
+                
+                <Link href="/categories/all" >
+                    {text}
+                    <p className="hover:underline">Click here to see all blogs.</p>    
+                </Link>
+            </span>
         </div>
     );
 };
 
-const BlogLinks = ({ blog } : BlogParam) => {
+const BlogLinks = ({ blog }: BlogParam) => {
     const category = blog.tags && blog.tags.length > 0 ? blog.tags[0] : null;
     const sortedBlogs = sortBlogs(allBlogs.filter(b => b.tags?.some(t => t === category) ?? false));
     const previousBlog = getAdjacentBlog(sortedBlogs, blog, "previous");
     const nextBlog = getAdjacentBlog(sortedBlogs, blog, "next");
 
     return previousBlog || nextBlog ? (
-        <div className="col-span-12 lg:col-start-5 lg:col-span-8 lg:h-20 h-10 flex flex-col sm:flex-row justify-around gap-5 pt-5">
+        <div >
             <BlogSquare blog={previousBlog} direction="previous" category={category} />
             <BlogSquare blog={nextBlog} direction="next" category={category} />
         </div>
     ) : (
         <EmptySquare text="No other blogs in this project."/>
+
     );
 };
 
