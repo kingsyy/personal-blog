@@ -14,7 +14,9 @@ const SkillList = [
   { name: "React", link: "https://react.dev/" },
   { name: "Next.js", link: "https://nextjs.org/" },
   { name: "Docker", link: "https://docker.com" },
-  { name: "Azure", link: "https://azure.microsoft.com/en-gb/" }
+  { name: "Azure", link: "https://azure.microsoft.com/en-gb/" },
+  { name: "LLM", link: "https://en.wikipedia.org/wiki/Large_language_model" },
+  { name: "AI", link: "https://en.wikipedia.org/wiki/Artificial_intelligence" },
 ];
 
 const Skills = () => {

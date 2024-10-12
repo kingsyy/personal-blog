@@ -26,21 +26,22 @@ const AboutCoverSection = () => {
           Let's craft the digital future together.
         </h2>
         <p className='font-medium mt-4 text-base'>
-        Greetings, 
-          wanderer of the interwebz. Seeker of knowledge. Welcome to my corner of the web, 
+          Welcome to my corner of the web, 
           where code dances and bytes paint stories of innovation.
+          this blog was born out of the idea of giving back, after building on top of others for so long. 
         </p>
         <p className='font-medium mt-4 text-base'>
-          I'm a full-stack developer with a software developer's degree. 
+          I'm a full-stack developer with a software developer's associates degree. 
           When not immersed in code for work or personal projects, 
-            you'll find me capturing the beauty of nature through photography
-            (as the pictures in the carrousel) or
-            doing extreme sports like snowboarding or skydiving.
-          I also enjoy repairing electronics and working with IoT.
+            you'll in nature often capturing the beauty through photography or
+            doing sports like snowboarding and running.
+          I also enjoy repairing electronics and working with IoT and self hosted solutions. 
+          My digital heart is with privacy, security and inclusive design, with a love for anything open-source.
         </p>
         <p className='font-medium  mt-4 text-base'>
-          My digital heart is with privacy, security and inclusive design
-              with a passion for open-source projects.
+          The name Montali was chosen by my father, the one who sparked and facilitated my interest in the digital realm.
+         {/*TODO add extra explanation*/}
+          In memory of him I kept the domain and share my digital adventures here.
           For a deeper dive into my projects, 
               feel free to explore my <Link className="!underline underline-offset-2" href={"/categories/all"}>posts</Link>.
           You can find more about how this blog was created in my <Link className="!underline underline-offset-2" href={"/categories/blog"}>blog posts.</Link>
