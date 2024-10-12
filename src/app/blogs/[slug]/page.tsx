@@ -150,7 +150,7 @@ export default function BlogPage({ params }: SlugParam) {
         <RenderMdx blog={blog} />
       </div>
     </article>
-    <div className='col-span-12 lg:col-start-5 lg:col-span-8 lg:h-20 h-10 flex flex-col sm:flex-row justify-around gap-5 pt-5'>
+    <div className='py-5'>
       <BlogLinks blog={blog}/>
     </div>
     </>

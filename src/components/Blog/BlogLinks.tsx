@@ -3,7 +3,7 @@ import { allBlogs, Blog } from '@/contentlayer';
 import { GetNullableFields, sortBlogs } from "@/utils/index";
 import Link from 'next/link';
 import React from 'react'
-import { BlogParam, TextParam } from '@/models/params';
+import { BlogParam, TextParam, TextsParam } from '@/models/params';
 import { BlogLinkItem } from '@/models/index';
 
 const getAdjacentBlog = (sortedBlogs: Blog[], currentBlog: Blog | undefined, direction: string) => {
@@ -15,55 +15,47 @@ const getAdjacentBlog = (sortedBlogs: Blog[], currentBlog: Blog | undefined, dir
 const BlogSquare = ({ blog, direction, category }: BlogLinkItem) => {
     const blogValues = GetNullableFields(blog);
     return blog ? (
-        <div className="relative rounded-lg overflow-hidden shadow-lg">
-            <ExportedImage src={blogValues.imageUrl}
-                placeholder='blur'
+        <div className="group relative inline-block overflow-hidden rounded-xl w-full h-full lg:max-h-40">
+            <div className="absolute inset-0 h-full bg-gradient-to-b from-transparent to-dark/90 rounded-xl z-10" />
+            <ExportedImage
+                src={blogValues.imageUrl}
+                placeholder="blur"
                 blurDataURL={blogValues.blurHashDataUrl}
-                alt={blog?.title}
-                fill
-                className="object-cover w-full h-full"
-                layout="fill"
-                priority
+                alt={blog.title}
+                width={blogValues.imageWidth}
+                height={blogValues.imageHeight}
+                className="w-full h-full object-center object-cover rounded-xl group-hover:scale-105 transition-all ease duration-300"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-                <Link href={blog.url} className="text-white text-center">
-                    <p className="font-bold text-lg">{blog.title}</p>
-                    <p className="text-sm">{direction === 'next' ? 'Next' : 'Previous'} in {category}</p>
+
+            <div className="absolute inset-0 flex flex-col justify-end items-center text-center p-4 xs:p-6 sm:p-10 z-20 ">
+                <Link href={blog.url} className="mt-4 text-light text-xl md:text-2xl">
+                    <h3 >{direction === 'next' ? 'Next' : 'Previous'} in {category}:</h3>
+                    <h2 className="font-bold capitalize">
+                        <span className="bg-gradient-to-r from-accent to-accent bg-[length:0px_6px] dark:from-accentDark/50 dark:to-accentDark/50 group-hover:bg-[length:100%_6px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500">
+                            {blog.title}
+                        </span>
+                    </h2>
                 </Link>
             </div>
-
-            {/* <div className="absolute top-0 left-0 bottom-0 right-0 h-full
-                        bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-3xl
-                        "
-            />
-            <div className='w-full flex flex-col items-start justify-center relative'>
-                <Link href={blog.url} className='mt-6'>
-                    <p className='text-light text-s lg:text-m mx-5'>{blog.title}</p>    
-                </Link>
-            </div> */}
-
         </div>
     ) : (
-        <EmptySquare text={`No ${direction === 'next' ? 'newer' : 'older'} blogs in ${category} project yet.`}/>
+        <EmptySquare texts={[`No ${direction === 'next' ? 'newer' : 'older'} blogs in ${category} project yet.`]} />
     );
 };
 
-const EmptySquare = ({ text }: TextParam) => {
+const EmptySquare = ({ texts }: TextsParam) => {
     return (
-    //     <div className='rounded-3xl prose relative border-[1px] border-solid border-dark dark:border-light'>
-        // <Link href="/categories/all" className="mx-2">
-        //     <p className='text-dark dark:text-light mx-5 underline text-s lg:text-m'>{text} Click here to see all blogs.</p>    
-        // </Link>
-    // </div>
-        <div className="rounded-3xl border-[1px] border-solid border-dark dark:border-light flex items-center justify-center">
-            <span className="text-dark dark:text-light mx-5 text-s lg:text-m text-center p-5">
-                
-                <Link href="/categories/all" >
-                    {text}
-                    <p className="hover:underline">Click here to see all blogs.</p>    
-                </Link>
-            </span>
-        </div>
+        <div className="rounded-3xl border-[2px] border-solid border-dark dark:border-light flex items-center justify-center">
+        <span className="text-dark dark:text-light mx-5 p-5 text-xl md:text-2xl text-center font-bold">
+          <Link href="/categories/all" className="flex-col">
+            {texts[0]}
+            <h3 className="mt-2 bg-gradient-to-r from-accent to-accent bg-[length:0px_6px] dark:from-accentDark/50 dark:to-accentDark/50 hover:bg-[length:100%_6px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500">
+              Click here to see all blogs posts.
+            </h3>
+          </Link>
+        </span>
+      </div>
+      
     );
 };
 
@@ -74,13 +66,12 @@ const BlogLinks = ({ blog }: BlogParam) => {
     const nextBlog = getAdjacentBlog(sortedBlogs, blog, "next");
 
     return previousBlog || nextBlog ? (
-        <div >
+        <div className='flex flex-col sm:flex-row justify-around gap-5 pt-5 pb-8 px-5 md:px-10' >
             <BlogSquare blog={previousBlog} direction="previous" category={category} />
             <BlogSquare blog={nextBlog} direction="next" category={category} />
         </div>
     ) : (
-        <EmptySquare text="No other blogs in this project."/>
-
+        <EmptySquare texts={["No other blogs in this project."]} />
     );
 };
 
