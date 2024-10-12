@@ -59,7 +59,7 @@ const EmptySquare = ({ texts }: TextsParam) => {
     );
 };
 
-const BlogLinks = ({ blog }: BlogParam) => {
+const BlogFooter = ({ blog }: BlogParam) => {
     const category = blog.tags && blog.tags.length > 0 ? blog.tags[0] : null;
     const sortedBlogs = sortBlogs(allBlogs.filter(b => b.tags?.some(t => t === category) ?? false));
     const previousBlog = getAdjacentBlog(sortedBlogs, blog, "previous");
@@ -75,4 +75,4 @@ const BlogLinks = ({ blog }: BlogParam) => {
     );
 };
 
-export default BlogLinks;
+export default BlogFooter;

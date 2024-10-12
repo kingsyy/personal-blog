@@ -5,14 +5,14 @@ import siteMetadata from "@/utils/siteMetaData";
 import { Blog, allBlogs } from "@/contentlayer";
 import { slug } from "github-slugger";
 import ExportedImage from "next-image-export-optimizer";
-import BlogLinks from "@/components/Blog/BlogLinks";
 import { SlugParam } from "@/models/params";
 import { GetNullableFields } from "@/utils/index";
 import { ToC } from "@/models/index";
+import BlogFooter from "@/components/Blog/BlogFooter";
 
 function GetImage(blog: Blog | undefined){
   if(blog && blog.image){
-    return typeof blog?.image?.filePath === "string" ?? true
+    return typeof blog?.image?.filePath === "string"
     ? siteMetadata.siteUrl + blog?.image?.filePath.replace("../public", "")
     : blog?.image;
   }
@@ -151,7 +151,7 @@ export default function BlogPage({ params }: SlugParam) {
       </div>
     </article>
     <div className='py-5'>
-      <BlogLinks blog={blog}/>
+      <BlogFooter blog={blog}/>
     </div>
     </>
   );

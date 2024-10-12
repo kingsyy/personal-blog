@@ -3,9 +3,11 @@ import React from 'react'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import ExportedImage from "next-image-export-optimizer";
 import { BlogParam } from '@/models/params';
+import BlogLink from './BlogLink';
 
 const mdxComponents = {
-    ExportedImage
+    ExportedImage,
+    a: BlogLink
 }
 
 const RenderMdx = ({blog} : BlogParam) => {
