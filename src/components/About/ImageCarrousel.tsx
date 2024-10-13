@@ -17,7 +17,7 @@ export default function ImageCarrousel({ images }: ImageCarrouselParam) {
     setCurrentSlide(newSlide);
   };
 
-  const handleImageClick = (e) => {
+  const handleImageClick = (e: { clientX: any; currentTarget: any; }) => {
     const { clientX, currentTarget } = e;
     const clickPosition = clientX - currentTarget.getBoundingClientRect().left;
     const imageWidth = currentTarget.offsetWidth;
@@ -37,13 +37,12 @@ export default function ImageCarrousel({ images }: ImageCarrouselParam) {
     <div className="relative">
       <button
         onClick={handlePrevSlide}
-        className="absolute left-2.5 inset-y-1/2 z-20 w-10 h-10 ml-2 flex items-center justify-center rounded-full bg-neutral-500/75 transition-transform hover:scale-125 lg:w-14 lg:h-14 lg:hover:scale-150"
-      >
+        className="absolute left-2.5 inset-y-1/2 z-20 w-10 h-10 ml-2 flex items-center justify-center rounded-full bg-neutral-800/75 transition-transform hover:scale-125 lg:w-14 lg:h-14 lg:hover:scale-150">
         <ChevronLeft className="stroke-dark dark:stroke-light" />
       </button>
       {images.map((image, index) => {
         if (index === currentSlide) {
-          return (
+          return ( 
             <ExportedImage
               key={index}
               alt={image.alt}
